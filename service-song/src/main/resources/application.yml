@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: Song service
+  datasource:
+    url: jdbc:postgresql://localhost:5433/song-db
+    username: song
+    password: song_secret
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8081

@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: Resources service
+  servlet:
+    multipart:
+      max-file-size: 32MB
+      max-request-size: 32MB
+  datasource:
+    url: jdbc:postgresql://localhost:5432/resource-db
+    username: resource
+    password: resource_secret
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8080
+uploads:
+  location: uploads
+  allowedMimes: audio/mpeg
