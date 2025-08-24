@@ -1,9 +1,6 @@
 package net.bwskyd.music.song.config.advice;
 
-import exception.BadParameterException;
-import exception.FileNotFoundException;
-import exception.InvalidFileException;
-import exception.MetadataParseException;
+import exception.*;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import net.rewerk.music.dto.response.exception.EntityExistsExceptionResponseDTO;
@@ -30,7 +27,9 @@ public class ExceptionHandlerControllerAdvice {
             HttpMessageNotReadableException.class,
             MetadataParseException.class,
             BadParameterException.class,
-            InvalidFileException.class
+            BadRequestException.class,
+            InvalidFileException.class,
+            SongCreateException.class
     })
     public final ResponseEntity<ValidationExceptionResponseDTO> handleException(Exception ex) {
         ValidationExceptionResponseDTO response = new ValidationExceptionResponseDTO(
@@ -55,7 +54,7 @@ public class ExceptionHandlerControllerAdvice {
         } else {
             response.put(
                     "type",
-                    "Invalid upload type"
+                    ex.getMessage()
             );
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
@@ -64,7 +63,8 @@ public class ExceptionHandlerControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({
             EntityNotFoundException.class,
-            FileNotFoundException.class
+            FileNotFoundException.class,
+            NotFoundException.class
     })
     public final ResponseEntity<EntityNotFoundExceptionResponseDTO> handleNotFoundException(Exception ex) {
         EntityNotFoundExceptionResponseDTO response = new EntityNotFoundExceptionResponseDTO(ex.getMessage());

@@ -1,10 +1,16 @@
 package net.rewerk.music.dto.request.song;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SongCreateRequestDTO {
     @NotNull(message = "ID parameter required")
     @Positive(message = "ID should be positive number")

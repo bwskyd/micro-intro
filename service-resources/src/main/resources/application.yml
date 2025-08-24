@@ -5,6 +5,16 @@ spring:
     multipart:
       max-file-size: 32MB
       max-request-size: 32MB
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+      client:
+        config:
+          default:
+            connect-timeout: 2000
+            read-timeout: 3000
+            logger-level: basic
   datasource:
     url: jdbc:postgresql://localhost:5432/resource-db
     username: resource
@@ -12,6 +22,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+services:
+  songs:
+    base_uri: http://localhost:8081/songs
 server:
   port: 8080
 uploads:

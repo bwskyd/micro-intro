@@ -12,6 +12,7 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.springframework.stereotype.Service;
+import util.Util;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class MP3MetadataServiceImpl implements MP3MetadataService {
                 .album(tag.getFirst(FieldKey.ALBUM))
                 .artist(tag.getFirst(FieldKey.ARTIST))
                 .year(year == null ? 0 : Integer.parseInt(year))
-                .duration(String.valueOf(audioFile.getAudioHeader().getTrackLength()))
+                .duration(Util.secondsToMMSS(audioFile.getAudioHeader().getTrackLength()))
                 .build();
     }
 }

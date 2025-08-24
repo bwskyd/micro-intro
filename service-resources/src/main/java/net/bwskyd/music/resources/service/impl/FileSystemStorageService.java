@@ -31,7 +31,7 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public String store(MultipartFile file, List<String> acceptTypes) {
-        if (file.isEmpty()) {
+        if (file == null || file.isEmpty()) {
             throw new InvalidFileException("Uploading file empty");
         }
         String contentType = file.getContentType();

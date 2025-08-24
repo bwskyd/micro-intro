@@ -2,7 +2,9 @@
   <dictionary name="project">
     <words>
       <w>bwskyd</w>
+      <w>circuitbreaker</w>
       <w>flywaydb</w>
+      <w>openfeign</w>
     </words>
   </dictionary>
 </component>

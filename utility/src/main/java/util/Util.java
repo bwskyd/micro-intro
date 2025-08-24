@@ -9,4 +9,10 @@ public abstract class Util {
                 .map(Long::parseLong)
                 .toList();
     }
+    public static String secondsToMMSS(int seconds) {
+        return "%02d:%02d".formatted(
+                seconds / 60,
+                seconds % 60
+        );
+    }
 }
