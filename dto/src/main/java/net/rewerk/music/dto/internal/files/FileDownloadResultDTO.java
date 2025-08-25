@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class DownloadFileResultDTO {
+public class FileDownloadResultDTO {
     private byte[] bytes;
     private String filename;
     private String filetype;

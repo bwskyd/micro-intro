@@ -1,11 +1,10 @@
 package net.bwskyd.music.resources.controller;
 
-import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import net.bwskyd.music.resources.service.FilesService;
-import net.rewerk.music.dto.internal.files.DownloadFileResultDTO;
-import net.rewerk.music.dto.response.resource.CreateResourceResponseDTO;
-import net.rewerk.music.dto.response.resource.DeleteResourcesResponseDTO;
+import net.rewerk.music.dto.internal.files.FileDownloadResultDTO;
+import net.rewerk.music.dto.response.resource.ResourceCreateResponseDTO;
+import net.rewerk.music.dto.response.resource.ResourcesDeleteResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -27,11 +26,11 @@ public class ResourceController {
     private final FilesService filesService;
 
     @PostMapping
-    public ResponseEntity<CreateResourceResponseDTO> uploadResource(
+    public ResponseEntity<ResourceCreateResponseDTO> uploadResource(
             @RequestParam("file") MultipartFile file,
             UriComponentsBuilder uriBuilder
     ) {
-        CreateResourceResponseDTO result = filesService.save(file, allowedMimes);
+        ResourceCreateResponseDTO result = filesService.save(file, allowedMimes);
         return ResponseEntity
                 .created(uriBuilder
                         .replacePath("/resources/{resourceId}")
@@ -42,12 +41,8 @@ public class ResourceController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable
-                                                          @Positive(
-                                                                  message = "ID parameter should be positive number")
-
-                                                          Long id) {
-        DownloadFileResultDTO result = filesService.downloadFileById(id);
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long id) {
+        FileDownloadResultDTO result = filesService.downloadFileById(id);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(result.getFiletype()))
                 .header(HttpHeaders.CONTENT_DISPOSITION,
@@ -56,7 +51,7 @@ public class ResourceController {
     }
 
     @DeleteMapping
-    public ResponseEntity<DeleteResourcesResponseDTO> deleteFiles(@RequestParam String id) {
+    public ResponseEntity<ResourcesDeleteResponseDTO> deleteFiles(@RequestParam String id) {
         return ResponseEntity.ok().body(filesService.deleteAll(id));
     }
 }

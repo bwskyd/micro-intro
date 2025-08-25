@@ -7,6 +7,6 @@ import java.util.List;
 
 @Builder
 @Data
-public class DeleteResourcesResponseDTO {
+public class ResourcesDeleteResponseDTO {
     private List<Long> ids;
 }

@@ -16,7 +16,7 @@ spring:
             read-timeout: 3000
             logger-level: basic
   datasource:
-    url: jdbc:postgresql://localhost:5432/resource-db
+    url: jdbc:postgresql://localhost:5433/resource-db
     username: resource
     password: resource_secret
   jpa:

@@ -2,7 +2,7 @@ spring:
   application:
     name: Song service
   datasource:
-    url: jdbc:postgresql://localhost:5433/song-db
+    url: jdbc:postgresql://localhost:5434/song-db
     username: song
     password: song_secret
   jpa:

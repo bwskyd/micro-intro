@@ -68,7 +68,10 @@ public class ExceptionHandlerControllerAdvice {
             NotFoundException.class
     })
     public final ResponseEntity<EntityNotFoundExceptionResponseDTO> handleNotFoundException(Exception ex) {
-        EntityNotFoundExceptionResponseDTO response = new EntityNotFoundExceptionResponseDTO(ex.getMessage());
+        String message = ex.getMessage();
+        EntityNotFoundExceptionResponseDTO response = new EntityNotFoundExceptionResponseDTO(
+                message == null ? HttpStatus.NOT_FOUND.getReasonPhrase() : message
+        );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 

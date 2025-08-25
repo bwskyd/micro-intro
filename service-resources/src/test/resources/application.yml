@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/resource-db
+    username: resource
+    password: resource_secret
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+services:
+  songs:
+    base_uri: localhost:8090/songs
+uploads:
+  allowedMimes: audio/mpeg
+  location: uploads

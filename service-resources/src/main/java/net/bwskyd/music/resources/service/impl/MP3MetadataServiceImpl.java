@@ -21,14 +21,14 @@ import java.nio.file.Path;
 @Service
 public class MP3MetadataServiceImpl implements MP3MetadataService {
     @Override
-    public MP3ParseResultDTO parse(Path filepath) throws IOException {
+    public MP3ParseResultDTO parse(Path filepath) {
         File mp3File = new File(filepath.toUri());
         AudioFile audioFile;
         Tag tag;
         try {
             audioFile = AudioFileIO.read(mp3File);
             tag = audioFile.getTag();
-        } catch (CannotReadException e) {
+        } catch (CannotReadException | IOException e) {
             throw new MetadataParseException("Failed to read metadata");
         } catch (TagException e) {
             throw new MetadataParseException("Tag exception in metadata");
@@ -37,13 +37,17 @@ public class MP3MetadataServiceImpl implements MP3MetadataService {
         } catch (InvalidAudioFrameException e) {
             throw new MetadataParseException("Invalid audio frame");
         }
-        String year = tag.getFirst(FieldKey.YEAR);
+        String year = getTagValue(tag, FieldKey.YEAR);
         return MP3ParseResultDTO.builder()
-                .name(tag.getFirst(FieldKey.TITLE))
-                .album(tag.getFirst(FieldKey.ALBUM))
-                .artist(tag.getFirst(FieldKey.ARTIST))
+                .name(getTagValue(tag, FieldKey.TITLE))
+                .album(getTagValue(tag, FieldKey.ALBUM))
+                .artist(getTagValue(tag, FieldKey.ARTIST))
                 .year(year == null ? 0 : Integer.parseInt(year))
                 .duration(Util.secondsToMMSS(audioFile.getAudioHeader().getTrackLength()))
                 .build();
+    }
+
+    public String getTagValue(Tag tag, FieldKey field) {
+        return tag.getFirst(field);
     }
 }
