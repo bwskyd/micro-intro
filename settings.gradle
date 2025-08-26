@@ -1,8 +1,4 @@
 rootProject.name = 'music'
 
-include 'service-resources'
-include 'service-song'
-include 'entity'
-include 'exception'
-include 'dto'
-include 'utility'
+include 'resource-service'
+include 'song-service'

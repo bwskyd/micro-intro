@@ -8,12 +8,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/dto" />
-            <option value="$PROJECT_DIR$/entity" />
-            <option value="$PROJECT_DIR$/exception" />
-            <option value="$PROJECT_DIR$/service-resources" />
-            <option value="$PROJECT_DIR$/service-song" />
-            <option value="$PROJECT_DIR$/utility" />
+            <option value="$PROJECT_DIR$/resource-service" />
+            <option value="$PROJECT_DIR$/song-service" />
           </set>
         </option>
       </GradleProjectSettings>

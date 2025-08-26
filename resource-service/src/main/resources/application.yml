@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: Resources service
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+      client:
+        config:
+          default:
+            connect-timeout: 2000
+            read-timeout: 3000
+            logger-level: basic
+  datasource:
+    url: jdbc:postgresql://localhost:5433/resource-db
+    username: resource
+    password: resource_secret
+  jpa:
+    hibernate:
+      ddl-auto: update
+services:
+  songs:
+    base_uri: http://localhost:8081/songs
+server:
+  port: 8080
