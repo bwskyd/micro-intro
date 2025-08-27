@@ -2,11 +2,8 @@ spring:
   application:
     name: Song service
   datasource:
-    url: jdbc:postgresql://localhost:5434/song-db
-    username: song
-    password: song_secret
-  jpa:
-    hibernate:
-      ddl-auto: update
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5434/song-db}
+    username: ${SPRING_DATASOURCE_USERNAME:song}
+    password: ${SPRING_DATASOURCE_PASSWORD:song_secret}
 server:
   port: 8081

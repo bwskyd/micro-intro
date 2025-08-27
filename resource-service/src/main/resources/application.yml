@@ -12,14 +12,11 @@ spring:
             read-timeout: 3000
             logger-level: basic
   datasource:
-    url: jdbc:postgresql://localhost:5433/resource-db
-    username: resource
-    password: resource_secret
-  jpa:
-    hibernate:
-      ddl-auto: update
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/resource-db}
+    username: ${SPRING_DATASOURCE_USERNAME:resource}
+    password: ${SPRING_DATASOURCE_PASSWORD:resource_secret}
 services:
   songs:
-    base_uri: http://localhost:8081/songs
+    base_uri: ${SONG_SERVICE_URI:http://localhost:8081/songs}
 server:
   port: 8080
