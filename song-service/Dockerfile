@@ -6,9 +6,11 @@ WORKDIR /app
 COPY ./gradle ./gradle
 COPY ./build.gradle .
 COPY --chmod=755 ./gradlew .
-COPY ./src ./src
 
 RUN ./gradlew dependencies --no-daemon
+
+COPY ./src ./src
+
 RUN ./gradlew assemble --no-daemon -x test
 
 FROM eclipse-temurin:21-jre-alpine-3.22 as deploy
