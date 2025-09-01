@@ -20,3 +20,8 @@ services:
     base_uri: ${SONG_SERVICE_URI:http://localhost:8081/songs}
 server:
   port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${DISCOVERY_SERVICE_URI:http://localhost:8761/eureka}
+    register-with-eureka: true

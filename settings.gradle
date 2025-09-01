@@ -2,3 +2,4 @@ rootProject.name = 'music'
 
 include 'resource-service'
 include 'song-service'
+include 'cloud-discovery-service'

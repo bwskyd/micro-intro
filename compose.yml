@@ -1,8 +1,18 @@
 services:
 
+  cloud-discovery-service:
+   build:
+     context: ./cloud-discovery-service
+     dockerfile: Dockerfile
+   ports:
+     - "8761:8761"
+   environment:
+     DISCOVERY_SERVICE_URI: http://cloud-discovery-service:8761/eureka
+
   resource-service:
     depends_on:
       - resource-db
+      - cloud-discovery-service
     build:
       context: ./resource-service
       dockerfile: Dockerfile
@@ -13,19 +23,24 @@ services:
       SPRING_DATASOURCE_USERNAME: ${RESOURCE_DB_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${RESOURCE_DB_PASSWORD}
       SONG_SERVICE_URI: http://song-service:8081/songs
+      DISCOVERY_SERVICE_URI: http://cloud-discovery-service:8761/eureka
 
   song-service:
     depends_on:
       - song-db
+      - cloud-discovery-service
     build:
       context: ./song-service
       dockerfile: Dockerfile
     ports:
-      - "8081:8081"
+      - "8081-8082:8081"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://song-db:5432/${SONG_DB_NAME}
       SPRING_DATASOURCE_USERNAME: ${SONG_DB_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SONG_DB_PASSWORD}
+      DISCOVERY_SERVICE_URI: http://cloud-discovery-service:8761/eureka
+    deploy:
+      replicas: 2
 
   resource-db:
     image: postgres:17-alpine
